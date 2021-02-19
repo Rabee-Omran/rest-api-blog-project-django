@@ -13,7 +13,7 @@ schema_view = get_swagger_view(title='My Blog API' )
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-schema_view = get_schema_view(
+schema_view2 = get_schema_view(
    openapi.Info(
       title="Snippets API",
       default_version='v1',
@@ -42,10 +42,11 @@ urlpatterns = [
     path('api/v1/auth/logout/', views.LogoutView.as_view()),
 
     #doc 1
+    #bad docs :) -- need to fix (staticfiles) to (static) in /site-packages/rest_framework_swagger/templates/rest_framework_swagger/index.html, error at line 2
     path('api_docs/', schema_view),
 
     #doc 2,3
-    path('api_docs2/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('api_docs3/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('', schema_view2.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api_docs3/', schema_view2.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
